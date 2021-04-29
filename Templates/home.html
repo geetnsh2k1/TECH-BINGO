@@ -1,0 +1,128 @@
+{% include 'navbar.html' %}
+{% load static %}
+{% block title %}
+    <title></title>
+{% endblock title %}
+
+{% block css %}
+    <style>
+      html, body{
+        height:100%;
+        width:100%;
+      }
+      @media (min-width:1000px) {
+        body{
+          height:100%; 
+          background: url("{% static 'Images/bg2.png' %}") no-repeat;
+          background-size: cover;
+          background-position: center;
+          background-attachment: fixed;
+        } 
+        img{
+          height: 50%; width:50%;
+          border:10px double white;
+          border-radius: 50%;
+          vertical-align: center;
+        }
+      }
+      @media (max-width:1000px) and (min-width:500px) {
+        body{
+          height:100%; 
+          background: url("{% static 'Images/phonebg.png' %}") no-repeat;
+          background-size: cover;
+          background-position: center;
+          background-attachment: fixed;
+        } 
+        img{
+          height: 50%; width:50%;
+          border:10px double white;
+          border-radius: 50%;
+          margin-right: 5%;
+          border-color:#ffcc29;
+        }
+      }
+      @media (max-width:500px) {
+        body{
+          height:100%; 
+          background: url("{% static 'Images/phonebg.png' %}") no-repeat;
+          background-size: cover;
+          background-position: center;
+          background-attachment: fixed;
+        } 
+        img{
+          height: 75%; width:75%;
+          border:10px double white;
+          border-radius: 50%;
+          margin-right: 5%;
+          border-color:#ffcc29;
+        }
+      }
+      .main{
+          font-family: 'Montserrat', sans-serif;
+      }
+      .content{
+        margin-top: 8%;
+      }
+      #start{
+        font-size: 150%;
+      }
+      img:hover{
+        border:10px double #ffcc29;
+      }
+      button:focus{
+        border: none;
+        outline: none;
+      }
+    </style>
+{% endblock css %}
+
+{% block content %}
+    
+    <div class="main">
+        <div align="center" class="content" style="vertical-align: middle;">
+          {% if request.user.is_authenticated %}  
+            {% if display == "start game" %}
+              <button class="btn" id="start" ><img src="{% static 'Images/start.png' %}" alt=""></button>
+            {% elif display == "continue" %}
+              <!-- continue -->
+              <button class="btn" id="start" ><img src="{% static 'Images/continue.png' %}" alt=""></button>
+            {% else %}
+              <!-- game over -->
+              <button class="btn" id="start" ><img src="{% static 'Images/gameover.png' %}" alt=""></button>
+            {% endif %}
+          {% else %} 
+            <!-- login to play -->
+            <button class="btn" id="start" ><img src="{% static 'Images/logintoplay.png' %}" alt=""></button>
+          {% endif %}
+          {% if request.user.is_superuser %}
+           <br><br>
+
+            <a href="" class="btn btn-danger" id="download_data">Download</a>
+          {% endif %}
+        </div>
+    </div>
+    
+{% endblock content %}
+
+{% block script %}
+    <script>
+          var data = "{{superuser}}"
+          if(data != ''){ 
+            data = data.replace("&quot;", "")
+            data = data.replace("\n&quot;", "")
+          }
+          $("#download_data").click(function(){
+              var blob = new Blob([data], {type: "text/plain;charset=utf-8"});
+
+              saveAs(blob, "tech_bingo_main_data.txt");
+          })
+
+        if("{{request.user.is_authenticated}}" == "False" || "{{display}}" == "game over") {
+          $("#start").addClass("disabled")
+        }
+        $("#start").click(function(){
+          var username = "{{request.user.username}}"
+          location.href += `game/play/${username}/`
+        })
+    </script>
+{% endblock script %}

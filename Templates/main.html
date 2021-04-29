@@ -1,0 +1,354 @@
+{% include 'navbar.html' %}
+{% load static %}
+{% block title %}
+    <title></title>
+{% endblock title %}
+
+{% block css %}
+    <style>
+        .main{
+            font-family: 'Montserrat', sans-serif;
+            color:white;
+        }
+        .content{
+            margin:2.5%;
+        }
+        .box {
+            font-size: 150%;
+            padding: 5%;
+            border-right: 2px solid white;
+            border-bottom: 2px solid white;
+            display:inline-block;
+            font-weight: bold;
+          }
+          .matrix {
+            width: 60%;
+            display: grid;
+            grid-gap: 0%;
+            grid-template-columns: repeat(5, 20%);
+            grid-template-rows: repeat(5, 20%);
+            grid-auto-flow: auto;
+            background-image: linear-gradient(to bottom right, #e84545, #2b2e4a);
+            border-top: 2px solid white;
+            border-left: 2px solid white;
+          }
+          .save{
+              margin-top:2.5%;
+          }
+          @media (min-width:1000px) {
+            body{
+              height:100%; 
+              background: url("{% static 'Images/bg6.png' %}") no-repeat;
+              background-size: cover;
+              background-position: center;
+              background-attachment: fixed;
+            }
+            .save{
+                margin-top: 2.5%;
+            }
+            .top{
+                margin:0 5%;
+                margin-bottom: 2.5%;
+                display: flex;
+                flex-direction:row;
+                justify-content:space-between;
+            }
+          }
+          @media (max-width:1000px) and (min-width:500px) {
+            body{
+              height:100%; 
+              background: url("{% static 'Images/bg6.png' %}") no-repeat;
+              background-size: cover;
+              background-position: center;
+              background-attachment: fixed;
+            }
+            .save{
+                margin-top: 5%;
+            }
+            .top{
+                margin-bottom:5%;
+            }
+          }
+          @media (max-width:500px) {
+            body{
+              height:100%; 
+              background: url("{% static 'Images/bg6.png' %}") no-repeat;
+              background-size: cover;
+              background-position: center;
+              background-attachment: fixed;
+            }
+            .save{
+                margin-top: 5%;
+            }
+            .top{
+                margin-bottom:5%;
+            }
+          }
+          .green{
+            background-color: #81b214;
+          }
+          .answer{
+              margin-top: 2.5%;
+          }
+          ::-webkit-scrollbar {
+            width: 6px;
+        } 
+        ::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+        } 
+        ::-webkit-scrollbar-thumb {
+            box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+        }
+    </style>
+{% endblock css %}
+
+{% block content %}
+    
+    <div class="main">
+        <div align="center" class="content">
+            
+            <div class="top">
+                <div class="question">
+                    <div class="card" style="width: 24rem;height:12rem;overflow:auto;background-color:transparent;background-color:#00334ed2;color:white;border:2px solid white;border-radius:5px">
+                        <div class="card-body">
+                            <h2 class="card-title" style="color:#ffcc29;font-weight:bold;">Question</h2>
+                            <p class="card-text">{{question.Problem}}</p>
+                            
+                            <form action="input/" method="post" class="answer">
+                                {% csrf_token %}
+                                <input type="hidden" name="question" value="{{question}}">
+                            
+                                <div class="input-group mb-3">
+                                    <input type="number" class="form-control" name="input" aria-label="Recipient's username" aria-describedby="button-addon2" style="color:black;font-weight:bold;;padding-left:37.5%;">
+                                    <button type="submit" class="btn btn-success" type="button" id="button-addon2">Submit</button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- game.Current -->
+                <div>
+                    {% if game.Current == "BINGO" %}
+                        <img src="{% static 'Images/bingo3.png' %}" alt="" style="width:50%;height:50%;margin:2.5%">
+                    {% elif game.Current == "INGO" %}
+                        <img src="{% static 'Images/ingo.png' %}" alt="" style="width:50%;height:50%;margin:2.5%">
+                    {% elif game.Current == "NGO" %}
+                        <img src="{% static 'Images/ngo.png' %}" alt="" style="width:50%;height:50%;margin:2.5%">
+                    {% elif game.Current == "GO" %}
+                        <img src="{% static 'Images/go.png' %}" alt="" style="width:50%;height:50%;margin:2.5%">}
+                    {% else %}
+                        <img src="{% static 'Images/o.png' %}" alt="" style="width:50%;height:50%;margin:2.5%">
+                    {% endif %}
+                </div>
+
+                <div>
+                    <div class="countdown">
+                        <table style="font-size: 125%;display:inline-block;background-color:rgba(0,0,0,0.2);border-radius:5px;border:2px solid white">
+                            <tbody>
+                                <tr>
+                                    <th style="border:15px solid transparent;text-align:center;color:#fdc819;">Days </th>
+                                    <th style="border:15px solid transparent;text-align:center;color:#fdc819;">Hrs </th>
+                                    <th style="border:15px solid transparent;text-align:center;color:#fdc819;">Mins </th>
+                                    <th style="border:15px solid transparent;text-align:center;color:#fdc819;">Secs</th>
+                                </tr>
+                                <tr>
+                                    <td style="border:15px solid transparent;text-align:center;color:white" id="days">00</td>
+                                    <td style="border:15px solid transparent;text-align:center;color:white" id="hours">00</td>
+                                    <td style="border:15px solid transparent;text-align:center;color:white" id="minutes">00</td>
+                                    <td style="border:15px solid transparent;text-align:center;color:white" id="seconds">00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                      </div>
+                </div>
+            </div>
+
+            <div class="matrix">
+                {% if ans_1 == -1 %}
+                    <div class="box green">{{ans_1}}</div>
+                {% else %}
+                    <div class="box">{{ans_1}}</div>
+                {% endif %}
+
+                {% if ans_2 == -1 %}
+                    <div class="box green">{{ans_2}}</div>
+                {% else %}
+                    <div class="box">{{ans_2}}</div>
+                {% endif %}
+
+                {% if ans_3 == -1 %}
+                    <div class="box green">{{ans_3}}</div>
+                {% else %}
+                    <div class="box">{{ans_3}}</div>
+                {% endif %}
+
+                {% if ans_4 == -1 %}
+                    <div class="box green">{{ans_4}}</div>
+                {% else %}
+                    <div class="box">{{ans_4}}</div>
+                {% endif %}
+
+                {% if ans_5 == -1 %}
+                    <div class="box green">{{ans_5}}</div>
+                {% else %}
+                    <div class="box">{{ans_5}}</div>
+                {% endif %}
+
+                {% if ans_6 == -1 %}
+                    <div class="box green">{{ans_6}}</div>
+                {% else %}
+                    <div class="box">{{ans_6}}</div>
+                {% endif %}
+
+                {% if ans_7 == -1 %}
+                    <div class="box green">{{ans_7}}</div>
+                {% else %}
+                    <div class="box">{{ans_7}}</div>
+                {% endif %}
+
+                {% if ans_8 == -1 %}
+                    <div class="box green">{{ans_8}}</div>
+                {% else %}
+                    <div class="box">{{ans_8}}</div>
+                {% endif %}
+
+                {% if ans_9 == -1 %}
+                    <div class="box green">{{ans_9}}</div>
+                {% else %}
+                    <div class="box">{{ans_9}}</div>
+                {% endif %}
+
+                {% if ans_10 == -1 %}
+                    <div class="box green">{{ans_10}}</div>
+                {% else %}
+                    <div class="box">{{ans_10}}</div>
+                {% endif %}
+
+                {% if ans_11 == -1 %}
+                    <div class="box green">{{ans_11}}</div>
+                {% else %}
+                    <div class="box">{{ans_11}}</div>
+                {% endif %}
+
+                {% if ans_12 == -1 %}
+                    <div class="box green">{{ans_12}}</div>
+                {% else %}
+                    <div class="box">{{ans_12}}</div>
+                {% endif %}
+
+                {% if ans_13 == -1 %}
+                    <div class="box green">{{ans_13}}</div>
+                {% else %}
+                    <div class="box">{{ans_13}}</div>
+                {% endif %}
+
+                {% if ans_14 == -1 %}
+                    <div class="box green">{{ans_14}}</div>
+                {% else %}
+                    <div class="box">{{ans_14}}</div>
+                {% endif %}
+
+                {% if ans_15 == -1 %}
+                    <div class="box green">{{ans_15}}</div>
+                {% else %}
+                    <div class="box">{{ans_15}}</div>
+                {% endif %}
+
+                {% if ans_16 == -1 %}
+                    <div class="box green">{{ans_16}}</div>
+                {% else %}
+                    <div class="box">{{ans_16}}</div>
+                {% endif %}
+
+                {% if ans_17 == -1 %}
+                    <div class="box green">{{ans_17}}</div>
+                {% else %}
+                    <div class="box">{{ans_17}}</div>
+                {% endif %}
+
+                {% if ans_18 == -1 %}
+                    <div class="box green">{{ans_18}}</div>
+                {% else %}
+                    <div class="box">{{ans_18}}</div>
+                {% endif %}
+
+                {% if ans_19 == -1 %}
+                    <div class="box green">{{ans_19}}</div>
+                {% else %}
+                    <div class="box">{{ans_19}}</div>
+                {% endif %}
+
+                {% if ans_20 == -1 %}
+                    <div class="box green">{{ans_20}}</div>
+                {% else %}
+                    <div class="box">{{ans_20}}</div>
+                {% endif %}
+
+                {% if ans_21 == -1 %}
+                    <div class="box green">{{ans_21}}</div>
+                {% else %}
+                    <div class="box">{{ans_21}}</div>
+                {% endif %}
+
+                {% if ans_22 == -1 %}
+                    <div class="box green">{{ans_22}}</div>
+                {% else %}
+                    <div class="box">{{ans_22}}</div>
+                {% endif %}
+
+                {% if ans_23 == -1 %}
+                    <div class="box green">{{ans_23}}</div>
+                {% else %}
+                    <div class="box">{{ans_23}}</div>
+                {% endif %}
+
+                {% if ans_24 == -1 %}
+                    <div class="box green">{{ans_24}}</div>
+                {% else %}
+                    <div class="box">{{ans_24}}</div>
+                {% endif %}
+
+                {% if ans_25 == -1 %}
+                    <div class="box green">{{ans_25}}</div>
+                {% else %}
+                    <div class="box">{{ans_25}}</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+{% endblock content %}
+
+{% block script %}
+    <script>
+        var start = new Date("{{start}}").getTime();
+        var x = setInterval(function(){
+            var now = new Date().getTime();
+            var diff = now-start
+            var days = Math.floor(diff / (1000*60*60*24))
+            var hours = Math.floor((diff % (1000*60*60*24)) / (1000*60*60))
+            var minutes = Math.floor((diff % (1000*60*60)) / (1000*60))
+            var seconds = Math.floor((diff % (1000*60)) / 1000)
+
+            if(hours.toString().length == 1) hours="0"+hours
+            if(minutes.toString().length == 1) minutes="0"+minutes
+            if(seconds.toString().length == 1) seconds="0"+seconds
+
+            if(days<=0 && minutes<=0 && hours<=0 && seconds<=0){
+                $("#part").addClass("disabled")
+                location.reload()
+                clearInterval(x)
+            }
+            $("#days")[0].innerHTML = days
+
+            $("#hours")[0].innerHTML = hours
+
+            $("#minutes")[0].innerHTML = minutes
+
+            $("#seconds")[0].innerHTML = seconds
+        }, 1000)
+
+    </script>
+{% endblock script %}

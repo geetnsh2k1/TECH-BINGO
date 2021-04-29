@@ -1,0 +1,179 @@
+{% include 'navbar.html' %}
+{% load static %}
+{% block title %}
+    <title></title>
+{% endblock title %}
+
+{% block css %}
+    <style>
+        body{
+            background-color:wheat;
+        }
+        .main{
+            font-family: 'Montserrat', sans-serif;
+        }
+        .content{
+            margin-top:0%;
+        }
+        .box {
+            background-color: rgb(245, 241, 241);
+            font-size: 150%;
+            padding: 5%;
+            font-weight: bold;
+          }
+          .matrix {
+            width: 80%;
+            display: grid;
+            grid-gap: 0%;
+            grid-template-columns: repeat(5, 20%);
+            grid-template-rows: repeat(5, 20%);
+            grid-auto-flow: auto;
+            background-image: linear-gradient(to bottom right, #e84545, #2b2e4a);
+            border:5px solid white;
+          }
+          @media (min-width:1000px) {
+            body{
+              height:100%; 
+              background: url("{% static 'Images/bg6.png' %}") no-repeat;
+              background-size: cover;
+              background-position: center;
+              background-attachment: fixed;
+            }
+            .save{
+                margin-top: 2.5%;
+            }
+          }
+          @media (max-width:1000px) and (min-width:500px) {
+            body{
+              height:100%; 
+              background: url("{% static 'Images/bg6.png' %}") no-repeat;
+              background-size: cover;
+              background-position: center;
+              background-attachment: fixed;
+            }
+            .save{
+                margin-top: 5%;
+            }
+          }
+          @media (max-width:500px) {
+            body{
+              height:100%; 
+              background: url("{% static 'Images/bg6.png' %}") no-repeat;
+              background-size: cover;
+              background-position: center;
+              background-attachment: fixed;
+            }
+            .save{
+                margin-top: 5%;
+            }
+          }
+          .save{
+              padding:0.5% 4%;
+              font-family: inherit;
+              font-size: 125%;
+          }
+    </style>
+{% endblock css %}
+
+{% block content %}
+    
+    <div class="main">
+        <div align="center" class="content">
+            <!-- <h1 style="margin-bottom: 2.5%;">BINGO</h1> -->
+            <img src="{% static 'Images/bingo3.png' %}" alt="" style="width:15%;height:15%;margin:2.5%">
+            
+            <form action="save/" method="POST">
+                {% csrf_token %}
+                <div class="matrix">
+                    <div class="input-group flex-nowrap">
+                        <input type="text" name="1" class="form-control box" style="border-radius: 0;margin:0;padding-left:45%;background-color:transparent;color:white;outline:none;border:none;border-right:2px solid white;border-bottom:2px solid white;outline:none;border:none;border-right:2px solid white;border-bottom:2px solid white" required>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <input type="text" name="2" class="form-control box" style="border-radius: 0;margin:0;padding-left:45%;background-color:transparent;color:white;outline:none;border:none;border-right:2px solid white;border-bottom:2px solid white" required>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <input type="text" name="3" class="form-control box" style="border-radius: 0;margin:0;padding-left:45%;background-color:transparent;color:white;outline:none;border:none;border-right:2px solid white;border-bottom:2px solid white" required>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <input type="text" name="4" class="form-control box" style="border-radius: 0;margin:0;padding-left:45%;background-color:transparent;color:white;outline:none;border:none;border-right:2px solid white;border-bottom:2px solid white" required>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <input type="text" name="5" class="form-control box" style="border-radius: 0;margin:0;padding-left:45%;background-color:transparent;color:white;outline:none;border:none;border-bottom:2px solid white" required>
+                    </div>
+
+                    <div class="input-group flex-nowrap">
+                        <input type="text" name="6" class="form-control box" style="border-radius: 0;margin:0;padding-left:45%;background-color:transparent;color:white;outline:none;border:none;border-right:2px solid white;border-bottom:2px solid white" required>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <input type="text" name="7" class="form-control box" style="border-radius: 0;margin:0;padding-left:45%;background-color:transparent;color:white;outline:none;border:none;border-right:2px solid white;border-bottom:2px solid white" required>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <input type="text" name="8" class="form-control box" style="border-radius: 0;margin:0;padding-left:45%;background-color:transparent;color:white;outline:none;border:none;border-right:2px solid white;border-bottom:2px solid white" required>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <input type="text" name="9" class="form-control box" style="border-radius: 0;margin:0;padding-left:45%;background-color:transparent;color:white;outline:none;border:none;border-right:2px solid white;border-bottom:2px solid white" required>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <input type="text" name="10" class="form-control box" style="border-radius: 0;margin:0;padding-left:45%;background-color:transparent;color:white;outline:none;border:none;border-bottom:2px solid white" required>
+                    </div>
+
+                    <div class="input-group flex-nowrap">
+                        <input type="text" name="11" class="form-control box" style="border-radius: 0;margin:0;padding-left:45%;background-color:transparent;color:white;outline:none;border:none;border-right:2px solid white;border-bottom:2px solid white" required>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <input type="text" name="12" class="form-control box" style="border-radius: 0;margin:0;padding-left:45%;background-color:transparent;color:white;outline:none;border:none;border-right:2px solid white;border-bottom:2px solid white" required>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <input type="text" name="13" class="form-control box" style="border-radius: 0;margin:0;padding-left:45%;background-color:transparent;color:white;outline:none;border:none;border-right:2px solid white;border-bottom:2px solid white" required>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <input type="text" name="14" class="form-control box" style="border-radius: 0;margin:0;padding-left:45%;background-color:transparent;color:white;outline:none;border:none;border-right:2px solid white;border-bottom:2px solid white" required>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <input type="text" name="15" class="form-control box" style="border-radius: 0;margin:0;padding-left:45%;background-color:transparent;color:white;outline:none;border:none;border-bottom:2px solid white" required>
+                    </div>
+
+                    <div class="input-group flex-nowrap">
+                        <input type="text" name="16" class="form-control box" style="border-radius: 0;margin:0;padding-left:45%;background-color:transparent;color:white;outline:none;border:none;border-right:2px solid white;border-bottom:2px solid white" required>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <input type="text" name="17" class="form-control box" style="border-radius: 0;margin:0;padding-left:45%;background-color:transparent;color:white;outline:none;border:none;border-right:2px solid white;border-bottom:2px solid white" required>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <input type="text" name="18" class="form-control box" style="border-radius: 0;margin:0;padding-left:45%;background-color:transparent;color:white;outline:none;border:none;border-right:2px solid white;border-bottom:2px solid white" required>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <input type="text" name="19" class="form-control box" style="border-radius: 0;margin:0;padding-left:45%;background-color:transparent;color:white;outline:none;border:none;border-right:2px solid white;border-bottom:2px solid white" required>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <input type="text" name="20" class="form-control box" style="border-radius: 0;margin:0;padding-left:45%;background-color:transparent;color:white;outline:none;border:none;border-bottom:2px solid white" required>
+                    </div>
+
+                    <div class="input-group flex-nowrap">
+                        <input type="text" name="21" class="form-control box" style="border-radius: 0;margin:0;padding-left:45%;background-color:transparent;color:white;outline:none;border:none;border-right:2px solid white;" required>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <input type="text" name="22" class="form-control box" style="border-radius: 0;margin:0;padding-left:45%;background-color:transparent;color:white;outline:none;border:none;border-right:2px solid white;" required>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <input type="text" name="23" class="form-control box" style="border-radius: 0;margin:0;padding-left:45%;background-color:transparent;color:white;outline:none;border:none;border-right:2px solid white;" required>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <input type="text" name="24" class="form-control box" style="border-radius: 0;margin:0;padding-left:45%;background-color:transparent;color:white;outline:none;border:none;border-right:2px solid white;" required>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <input type="text" name="25" class="form-control box" style="border-radius: 0;margin:0;padding-left:45%;background-color:transparent;color:white;outline:none;border:none;" required>
+                    </div>
+                </div>
+                <button class="btn btn-danger save" type="submit">Save</button>
+            </form>
+        </div>
+    </div>
+    
+{% endblock content %}
+
+{% block script %}
+    <script>
+        
+    </script>
+{% endblock script %}
