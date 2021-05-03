@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block title %}
-    <title></title>
+    <title>BINGO HOME</title>
 {% endblock title %}
 
 {% block css %}
@@ -99,7 +99,11 @@
                       
                     <div class="btn-group">
                       <button type="button" class="btn btn-outline-light dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
-                        <img class="dp" src="{{profile.Image.url}}" alt="">
+                        {% if profile.Image.url == "/Media/Default.png" %}
+                          <img class="dp" src="{% static 'Images/Default.png' %}" alt="">
+                        {% else %}
+                          <img class="dp" src="{{profile.Image.url}}" alt="">
+                        {% endif %}
                       </button>
                       <ul class="dropdown-menu dropdown-menu-lg-end">
                         

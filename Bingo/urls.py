@@ -28,7 +28,6 @@ urlpatterns = [
     url('', include('Home.urls')),
     url('profile/', include('Profile.urls')),
     url('game/', include('Game.urls')),
-    path('admin/', admin.site.urls),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

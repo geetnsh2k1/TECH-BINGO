@@ -1,7 +1,7 @@
 {% include 'navbar.html' %}
 {% load static %}
 {% block title %}
-    <title></title>
+    <title>MAIN HOME</title>
 {% endblock title %}
 
 {% block css %}
@@ -137,7 +137,7 @@
                     {% elif game.Current == "NGO" %}
                         <img src="{% static 'Images/ngo.png' %}" alt="" style="width:50%;height:50%;margin:2.5%">
                     {% elif game.Current == "GO" %}
-                        <img src="{% static 'Images/go.png' %}" alt="" style="width:50%;height:50%;margin:2.5%">}
+                        <img src="{% static 'Images/go.png' %}" alt="" style="width:50%;height:50%;margin:2.5%">
                     {% else %}
                         <img src="{% static 'Images/o.png' %}" alt="" style="width:50%;height:50%;margin:2.5%">
                     {% endif %}

@@ -15,7 +15,7 @@ def send_mail(reciever, name):
 
     print(reciever, name)
 
-    s = smtplib.SMTP(host='smtp.gmail.com', port=25)
+    s = smtplib.SMTP(host='smtp.gmail.com', port=587 or 465)
     s.starttls()
 
     s.login(MY_ADDRESS, PASSWORD)
