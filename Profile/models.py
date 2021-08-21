@@ -13,7 +13,7 @@ class Profile(models.Model):
     
     User = models.OneToOneField(Usr, unique=True, on_delete=models.CASCADE, null=False)
     
-    Phone = models.IntegerField(null=False)
+    Phone = models.CharField(max_length=30, null=False)
     
     College = models.CharField(max_length=200, blank=True)
     
