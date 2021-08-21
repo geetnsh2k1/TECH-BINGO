@@ -99,11 +99,7 @@
                       
                     <div class="btn-group">
                       <button type="button" class="btn btn-outline-light dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
-                        {% if profile.Image.url == "/Media/Default.png" %}
-                          <img class="dp" src="{% static 'Images/Default.png' %}" alt="">
-                        {% else %}
-                          <img class="dp" src="{{profile.Image.url}}" alt="">
-                        {% endif %}
+                        <img class="dp" src="{% static 'Images/Default.png' %}" alt="">
                       </button>
                       <ul class="dropdown-menu dropdown-menu-lg-end">
                         
