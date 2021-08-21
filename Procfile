@@ -1,1 +1,1 @@
-web: gunuicorn Bingo.wsgi
+web: gunicorn Bingo.wsgi
