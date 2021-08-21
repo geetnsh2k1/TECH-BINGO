@@ -63,37 +63,41 @@ def sign_in(request):
     return redirect('home')
 
 def sign_up(request):
-    if request.method == "POST":
-        first_name = request.POST['f_name'].upper()
-        last_name = request.POST['l_name'].upper()
-        Phone = request.POST['phone']
-        username = request.POST['username']
-        Email = request.POST['email']
-        College = request.POST['college']
-        password = request.POST['password']
-        
-        user = authenticate(username=username, email=Email, password=password)
-        
-        if not user:
-            new_user = User.objects.create_user(username=username, email=Email, password=password, first_name=first_name, last_name=last_name)
-            new_user.save()
+    try:
+        if request.method == "POST":
+            first_name = request.POST['f_name'].upper()
+            last_name = request.POST['l_name'].upper()
+            Phone = request.POST['phone']
+            username = request.POST['username']
+            Email = request.POST['email']
+            College = request.POST['college']
+            password = request.POST['password']
             
-            new_profile = Profile.objects.create(User=new_user, Phone=Phone, College=College)            
-            try:
-                Image = request.FILES['image']
-                new_profile.Image=Image
-            except :
-                pass
-            new_profile.save()
+            user = authenticate(username=username, email=Email, password=password)
             
-            # send_mail(new_profile.User.email, new_profile.User.first_name+" "+new_profile.User.last_name)
-            
-            login(request, new_user)
-            messages.success(request, "You are now successfully registerd with us.")    
-            return redirect('home')        
-        else:
-            res="user already exists."
-            messages.error(request, res)    
+            if not user:
+                new_user = User.objects.create_user(username=username, email=Email, password=password, first_name=first_name, last_name=last_name)
+                new_user.save()
+                
+                new_profile = Profile.objects.create(User=new_user, Phone=Phone, College=College)            
+                try:
+                    Image = request.FILES['image']
+                    new_profile.Image=Image
+                except :
+                    pass
+                new_profile.save()
+                
+                # send_mail(new_profile.User.email, new_profile.User.first_name+" "+new_profile.User.last_name)
+                
+                login(request, new_user)
+                messages.success(request, "You are now successfully registerd with us.")    
+                return redirect('home')        
+            else:
+                res="user already exists."
+                messages.error(request, res)
+    except Exception as e:
+        print(e)
+        return redirect('home')    
     return redirect('home')
 
 def sign_out(request):
