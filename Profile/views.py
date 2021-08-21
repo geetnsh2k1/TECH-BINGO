@@ -80,11 +80,6 @@ def sign_up(request):
                 new_user.save()
                 
                 new_profile = Profile.objects.create(User=new_user, Phone=Phone, College=College)            
-                try:
-                    Image = request.FILES['image']
-                    new_profile.Image=Image
-                except :
-                    pass
                 new_profile.save()
                 
                 # send_mail(new_profile.User.email, new_profile.User.first_name+" "+new_profile.User.last_name)
