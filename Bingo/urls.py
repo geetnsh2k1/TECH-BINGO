@@ -25,10 +25,10 @@ admin.site.site_title  = "TECH BINGO ADMIN PORTAL"
 admin.site.index_title = "WELCOME TO TECH BINGO"
 
 urlpatterns = [
-    path('admin/', admin),
     url('', include('Home.urls')),
     url('profile/', include('Profile.urls')),
     url('game/', include('Game.urls')),
+    path('admin/', admin.site.urls),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
