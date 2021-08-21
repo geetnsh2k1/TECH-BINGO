@@ -89,7 +89,8 @@ def sign_up(request):
             # send_mail(new_profile.User.email, new_profile.User.first_name+" "+new_profile.User.last_name)
             
             login(request, new_user)
-            messages.success(request, "You are now successfully registerd with us.")            
+            messages.success(request, "You are now successfully registerd with us.")    
+            return redirect('home')        
         else:
             res="user already exists."
             messages.error(request, res)    
