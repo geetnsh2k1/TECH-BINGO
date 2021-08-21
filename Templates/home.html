@@ -88,7 +88,7 @@
               <button class="btn" id="start" ><img src="{% static 'Images/continue.png' %}" alt=""></button>
             {% else %}
               <!-- game over -->
-              <button class="btn"><img src="{% static 'Images/gameover.png' %}" alt=""></button>
+              <button class="btn" id="game_over"><img src="{% static 'Images/gameover.png' %}" alt=""></button>
             {% endif %}
           {% else %} 
             <!-- login to play -->
@@ -124,5 +124,9 @@
           var username = "{{request.user.username}}"
           location.href += `game/play/${username}/`
         })
+
+        $("#game_over").click(
+          alert("You can play this game for only one time.")
+        )
     </script>
 {% endblock script %}
