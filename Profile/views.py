@@ -91,8 +91,8 @@ def sign_up(request):
                 res="user already exists."
                 messages.error(request, res)
     except Exception as e:
-        print(e)
-        return redirect('home')    
+        res=str(e)
+        messages.error(request, res)
     return redirect('home')
 
 def sign_out(request):
