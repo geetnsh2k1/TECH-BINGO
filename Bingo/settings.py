@@ -25,9 +25,9 @@ TEMPLATE_DIR = os.path.join(BASE_DIR, 'Templates')
 SECRET_KEY = '=s&z^d_32qy^@l@yzv$s(fw@3cpm%6#gl8rz6km@p2edhq_$bj'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['13.126.182.203', '172.31.1.242']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'Question',
     'Home',
     'Profile',
+    'urlparams',
 ]
 
 MIDDLEWARE = [
@@ -132,3 +133,5 @@ MEDIA_URL = '/Media/'
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [STATIC_DIR]
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')

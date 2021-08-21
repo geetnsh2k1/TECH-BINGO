@@ -3,13 +3,14 @@ from Game.models import Game
 from Profile.models import Profile
 from urlparams.redirect import param_redirect
 from django.contrib import messages
-from main import Bingo
 from django.utils import timezone
 from Question.models import Question
 import random
 import json
 from django.utils import timezone
 from datetime import timedelta
+
+from Game.main import Bingo 
 
 # Create your views here.
 def game_home(request, username):
@@ -163,4 +164,5 @@ def update(request, username):
                 return param_redirect(request, 'main', username)
                 
         else : return redirect('home')
-    return redirect('home')
+    except Exception as e:
+        return redirect('home')

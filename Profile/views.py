@@ -6,7 +6,6 @@ from django.contrib import messages
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from urlparams.redirect import param_redirect
 
 # Create your views here.
 def send_mail(reciever, name):
@@ -87,7 +86,7 @@ def sign_up(request):
                 pass
             new_profile.save()
             
-            send_mail(new_profile.User.email, new_profile.User.first_name+" "+new_profile.User.last_name)
+            # send_mail(new_profile.User.email, new_profile.User.first_name+" "+new_profile.User.last_name)
             
             login(request, new_user)
             messages.success(request, "You are now successfully registerd with us.")            
